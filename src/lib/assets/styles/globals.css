@@ -1,0 +1,20 @@
+@layer reset, variables, theme;
+
+@import url('./_reset.css') layer(reset);
+/* @import url('./_variables.css') layer(variables);
+@import url('./_theme.css') layer(theme); */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-size: 16px;
+  transition: color 250ms, background-color 250ms ease;
+}
