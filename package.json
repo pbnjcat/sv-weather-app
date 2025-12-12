@@ -13,14 +13,12 @@
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
     "test:unit": "vitest",
-    "test": "npm run test:unit -- --run && npm run test:e2e",
-    "test:e2e": "playwright test"
+    "test": "npm run test:unit"
   },
   "devDependencies": {
     "@csstools/postcss-oklab-function": "^4.0.12",
     "@eslint/compat": "^1.4.1",
     "@eslint/js": "^9.39.1",
-    "@playwright/test": "^1.56.1",
     "@sveltejs/adapter-auto": "^6.1.1",
     "@sveltejs/kit": "^2.48.5",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
@@ -31,7 +29,6 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.13.0",
     "globals": "^16.5.0",
-    "playwright": "^1.56.1",
     "postcss": "^8.5.6",
     "postcss-nested": "^7.0.2",
     "prettier": "^3.6.2",

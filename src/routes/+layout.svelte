@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '$lib/assets/styles/globals.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import Navbar from '$lib/components/Navbar.svelte';
 	let { children } = $props();
 </script>
 
@@ -18,14 +19,10 @@
 		}
 	</script>
 	<link rel="icon" href={favicon} />
-	<title>Randy Li</title>
+	<title>Weatherball</title>
 </svelte:head>
 
-<div class="wrapper">
-	<main id="main-content">
-		{@render children?.()}
-	</main>
-</div>
-
-<style>
-</style>
+<Navbar />
+<main id="main-content">
+	{@render children?.()}
+</main>
