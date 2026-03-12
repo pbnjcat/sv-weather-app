@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '$lib/assets/styles/globals.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import Navbar from '$lib/components/Navbar.svelte';
+
 	let { children } = $props();
 </script>
 
@@ -22,7 +22,6 @@
 	<title>Weatherball</title>
 </svelte:head>
 
-<Navbar />
 <main id="main-content">
 	{@render children?.()}
 </main>

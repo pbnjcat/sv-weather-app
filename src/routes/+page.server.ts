@@ -1,30 +1,23 @@
 import type { PageServerLoad } from './$types';
-import { WEATHER_FORECAST_API_BASE_URL, GEOCODE_BASE_URL } from '$lib/constants';
-import type { Coordinates, Weather } from '$lib/types';
+import { fetchLocations } from '$lib/services/geocode';
+import type { GeocodeLocation } from '$lib/types';
+import { parseSearchParams } from '$lib/utils';
 
 export const load: PageServerLoad = async ({ fetch, url }) => {
-    const query = url.searchParams.get('location');
+    const params = url.searchParams;
+    const searchRequest = parseSearchParams(params);
 
-    if (!query || query.length < 2) {
-        return { results: [] };
+    try {
+        const geocodeResponse = await fetchLocations(searchRequest, fetch);
+
+        return { geocodeResponse, searchRequest };
+    } catch (error) {
+        console.error('Error loading data:', error);
+
+        return {
+            geocodeResponse: [] as GeocodeLocation[],
+            searchRequest,
+            error: error instanceof Error ? error.message : 'Unknown error'
+        };
     }
-
-    // geocode api
-    const geocode = await fetch(`${GEOCODE_BASE_URL}?name=${query}&count=10&language=en&format=json`).then(response => response.json());
-    const { latitude, longitude } = geocode.results[0];
-    const location: Coordinates = { lat: latitude, lon: longitude };
-    // if(!geocode.ok) {
-    //     throw new Error("Failed to fetch geocode data");
-    // }
-
-    const response = await Promise.all([
-        fetch(`${WEATHER_FORECAST_API_BASE_URL}?latitude=${location.lat}&longitude=${location.lon}&current=temperature_2m,relative_humidity_2m,weather_code`).then(response => response.json()),
-    ])
-
-    const results: Weather = response[0];
-    console.log(results)
-    return {
-        results
-    };
 };
-

@@ -1,6 +1,6 @@
 export const DEFAULT_SUGGESTIONS = [
-    'Los Angeles',
     'New York',
+    'Los Angeles',
     'London',
     'Paris',
     'Sydney',

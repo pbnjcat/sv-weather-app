@@ -1,50 +1,44 @@
-export interface Weather {
-    location: Location;
-    forecast: Forecast;
-    current: Current;
-    timezone: string;
-    localtime: string;
-}
-// models the current weather data
-export interface Current {
-    last_updated: string;
-    temp: number;
-    condition: WeatherCondition;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-    wind: Wind;
-}
-// models the forecasted weather data
-export interface Forecast {
+import z from 'zod';
 
+export interface LocationSearchRequest {
+    query: string;
 }
 
-export interface WeatherCondition {
-    id: number;
-    description: string;
-    icon: string;
-}
+export const GeocodeLocationSchema = z.object({
+    name: z.string(),
+    country: z.string().optional(),
+    latitude: z.number(),
+    longitude: z.number(),
+    admin1: z.string().optional(),
+    timezone: z.string(),
+});
 
-export interface Wind {
-    speed: number;
-    deg: number;
-}
+export const GeocodeResponseSchema = z.object({
+    results: z.array(GeocodeLocationSchema).default([])
+});
 
-export interface WindDirection {
+export type GeocodeLocation = z.infer<typeof GeocodeLocationSchema>;
+export type GeocodeResponse = z.infer<typeof GeocodeResponseSchema>;
 
-}
+// export const Wind = z.object({
+//     speed: z.number(),
+//     deg: z.number(),
+//     direction: z.string()
+// })
 
-export interface Coordinates {
-    lat: number;
-    lon: number;
-}
+// export const CurrentWeatherResponseSchema = z.object({
+//     time: z.string(),
+//     temp: z.number(),
+//     is_day: z.boolean(),
+//     feels_like: z.number(),
+//     humidity: z.number(),
+//     weather_code: z.number(),
+//     precipitation: z.number(),
+//     pressure: z.number(),
+//     wind: Wind
+// })
 
-export interface Location {
-    name: string;
-    country: string;
-    coords: Coordinates;
-}
+// export type Wind = z.infer<typeof Wind>;
+// export type CurrenWeather = z.infer<typeof CurrentWeatherResponseSchema>;
+
 
